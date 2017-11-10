@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片上传</title>
+   <script src="/static/js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+            /*Ajax上传至后台并返回图片的url*/
+
+                $("#bt1").click(function () {
+                var csrf = $("input[name='csrfmiddlewaretoken']").val();
+                var formData=new FormData();
+                formData.append("csrfmiddlewaretoken",csrf);
+                formData.append('avatar', $("#img")[0].files[0]);  /*获取上传的图片对象*/
+                $.ajax({
+                      url: '/shangchuanImg/',
+                      type: 'POST',
+                      data: formData,
+                      contentType: false,
+                      processData: false,
+                      success: function (args) {
+                          alert("jjjj")
+{#                          console.log(args);  /*服务器端的图片地址*/#}
+{#                          $("#avatarPreview").attr('src','/static/media/Book/'+args);  /*预览图片*/#}
+{#                          $("#avatar").val('/'+args);  /*将服务端的图片url赋值给form表单的隐藏input标签*/#}
+                 }
+                  })
+             })
+
+        })
+    </script>
+</head>
+<body>
+{#<form action="/shangchuanImg/" method="post" enctype="multipart/form-data">#}
+    {% csrf_token %}
+    <img  id ="avatarPreview" src="/static/images/no.jpg" alt="" style="width: 200px;height: 200px;border: 1px solid #ccc">
+    <input type="file" name="pic" id="img">
+    <input type="button" value="上传" id="bt1">
+{#</form>#}
+</body>
+</html>

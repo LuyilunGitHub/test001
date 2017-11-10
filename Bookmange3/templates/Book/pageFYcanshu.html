@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+     <ul>
+        {% for area in page %}
+           <li>{{ area }}</li>
+        {% endfor %}
+
+
+     </ul>
+     {% if page.has_previous %}
+         <a href="/pagecanshu/?p={{ page.number|add:-1 }}">上一页</a>
+     {% endif %}
+
+{% for index in page.paginator.page_range %}
+    {% if page.number == index %}
+        {{ index }}
+    {% else %}
+        <a href="/pagecanshu/?p={{ index }}">{{ index }}</a>
+    {% endif %}
+
+{% endfor %}
+{% if page.has_next %}
+    <a href="/pagecanshu/?p={{ page.number|add:1 }}">下一页</a>
+{% endif %}
+
+</body>
+</html>
